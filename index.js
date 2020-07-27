@@ -20,6 +20,10 @@ class ServerlessPlugin {
             usage: "Runs migrations",
             lifecycleEvents: ["setup", "start"],
           },
+          create: {
+            usage: "Creates a migration from a template",
+            lifecycleEvents: ["start"],
+          },
         },
         // options: {
         //   message: {
@@ -36,6 +40,7 @@ class ServerlessPlugin {
     this.hooks = {
       "migration:migrate:setup": this.migrateSetup.bind(this),
       "migration:migrate:start": this.migrateStart.bind(this),
+      "migration:create:start": this.createStart.bind(this),
     };
   }
 
@@ -78,6 +83,31 @@ class ServerlessPlugin {
       console.error(err);
     }
     await client.end();
+  }
+
+  async createStart() {
+    const settings = await appSettings(
+      undefined,
+      undefined,
+      this.serverless.service.provider.environment,
+    );
+    const now = new Date();
+    const serial = `${now.getUTCFullYear()}${now.getUTCMonth()}${now.getUTCDay()}${now.getUTCHours()}${now.getUTCMinutes()}${now.getUTCSeconds()}`;
+    const compiledTemplate = await compileTemplate(settings.migrationTemplate, {
+      serial,
+    });
+    const outfile = path.join(
+      settings.migrationsFolder,
+      `${serial}.migration.ts`,
+    );
+    try {
+      await fs.access(settings.migrationsFolder);
+    } catch {
+      console.log("Creating migrations folder...");
+      await fs.mkdir(settings.migrationsFolder);
+    }
+    await fs.writeFile(outfile, compiledTemplate);
+    console.info(`Migration created: ${outfile}`);
   }
 }
 
