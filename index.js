@@ -26,6 +26,12 @@ class ServerlessPlugin {
           create: {
             usage: "Creates a migration from a template",
             lifecycleEvents: ["start"],
+            options: {
+              damp: {
+                usage: "Runs the queries but rolls them back",
+                required: false,
+              },
+            },
           },
         },
         // options: {
@@ -77,8 +83,15 @@ class ServerlessPlugin {
         this.migrations,
         db.migrationSchema || "public",
         db.migrationTable || "__migrations",
+        !this.options.damp,
       );
-      console.info(`Migrations complete.`);
+
+      if (this.options.damp) {
+        console.info(`Rolling back...`);
+        console.info(`Damp run successful.`);
+      } else {
+        console.info(`Migrations complete.`);
+      }
     } catch (err) {
       console.error(
         `An error occurred while running migrations. All changes have been reverted.`,
