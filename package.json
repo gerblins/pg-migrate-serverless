@@ -1,9 +1,14 @@
 {
   "name": "@gerblins/pg-migrate-serverless",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Serverless plugin for @gerblins/pg-migrate",
   "main": "index.js",
   "license": "MIT",
+  "homepage": "https://github.com/gerblins/pg-migrate-serverless",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gerblins/pg-migrate-serverless"
+  },
   "private": false,
   "dependencies": {
     "@gerblins/pg-migrate": "^0.0.9"
