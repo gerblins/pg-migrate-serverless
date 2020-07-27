@@ -7,6 +7,8 @@ const {
   compileTemplate,
 } = require("@gerblins/pg-migrate");
 const pg = require("pg");
+const path = require("path");
+const { promises: fs } = require("fs");
 
 class ServerlessPlugin {
   constructor(serverless, options) {
