@@ -4,6 +4,7 @@ const {
   dbSettings,
   appSettings,
   compileFolder,
+  compileTemplate,
 } = require("@gerblins/pg-migrate");
 const pg = require("pg");
 
