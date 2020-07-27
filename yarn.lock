@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@gerblins/pg-migrate@^0.0.11":
-  version "0.0.11"
-  resolved "https://registry.yarnpkg.com/@gerblins/pg-migrate/-/pg-migrate-0.0.11.tgz#42ceecb03a8feb71e3f1a9445c115ce27f8953c3"
-  integrity sha512-vcRMlwieZ3/3nMe8j44Tv0D2nl4FFIoDkOCzqZvYWQ9c4ebSYPhGMosdiRaHmZW8AZCj0mgAi4cAytA98WYohA==
+"@gerblins/pg-migrate@^0.0.13":
+  version "0.0.13"
+  resolved "https://registry.yarnpkg.com/@gerblins/pg-migrate/-/pg-migrate-0.0.13.tgz#defa3d0eeb940dce2623bb1fa9779358b1869e3b"
+  integrity sha512-jBi7pNkRfyrpcw4zNqpP1bkpjkp224hUjuwRM5m0CmCCrdgP+IkDeS7YS/7r7TaqY/nMoagW6MLy3TItW023qA==
   dependencies:
     "@types/argparse" "^1.0.38"
     "@types/pg" "^7.14.4"
