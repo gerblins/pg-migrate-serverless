@@ -59,12 +59,12 @@ class ServerlessPlugin {
       undefined,
       this.serverless.service.provider.environment,
     );
-    console.info(`Collecting migrations...`);
+    this.serverless.cli.log(`Collecting migrations...`);
     const compiledFolder = await compileFolder(settings.migrationsFolder);
     this.migrations = compiledFolder
       .map((m) => m.default)
       .sort((a, b) => a.serial - b.serial);
-    console.info(`Migrations collected...`);
+    this.serverless.cli.log(`Migrations collected...`);
   }
 
   async migrateStart() {
@@ -73,9 +73,9 @@ class ServerlessPlugin {
       undefined,
       this.serverless.service.provider.environment,
     );
-    console.info(`Connection to database...`);
+    this.serverless.cli.log(`Connection to database...`);
     const client = new pg.Client(db);
-    console.info(`Running migrations...`);
+    this.serverless.cli.log(`Running migrations...`);
     await client.connect();
     try {
       await migrate(
@@ -87,17 +87,17 @@ class ServerlessPlugin {
       );
 
       if (this.options.damp) {
-        console.info(`Rolling back...`);
-        console.info(`Damp run successful.`);
+        this.serverless.cli.log(`Rolling back...`);
+        this.serverless.cli.log(`Damp run successful.`);
       } else {
-        console.info(`Migrations complete.`);
+        this.serverless.cli.log(`Migrations complete.`);
       }
       await client.end();
     } catch (err) {
-      console.error(
+      this.serverless.cli.log(
         `An error occurred while running migrations. All changes have been reverted.`,
       );
-      console.error(err);
+      this.serverless.cli.log(err);
       await client.end();
       throw err;
     }
@@ -121,11 +121,11 @@ class ServerlessPlugin {
     try {
       await fs.access(settings.migrationsFolder);
     } catch {
-      console.log("Creating migrations folder...");
+      this.serverless.cli.log("Creating migrations folder...");
       await fs.mkdir(settings.migrationsFolder);
     }
     await fs.writeFile(outfile, compiledTemplate);
-    console.info(`Migration created: ${outfile}`);
+    this.serverless.cli.log(`Migration created: ${outfile}`);
   }
 }
 
