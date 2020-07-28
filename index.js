@@ -92,13 +92,15 @@ class ServerlessPlugin {
       } else {
         console.info(`Migrations complete.`);
       }
+      await client.end();
     } catch (err) {
       console.error(
         `An error occurred while running migrations. All changes have been reverted.`,
       );
       console.error(err);
+      await client.end();
+      process.exit(1);
     }
-    await client.end();
   }
 
   async createStart() {
