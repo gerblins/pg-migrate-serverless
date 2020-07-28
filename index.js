@@ -97,7 +97,6 @@ class ServerlessPlugin {
       this.serverless.cli.log(
         `An error occurred while running migrations. All changes have been reverted.`,
       );
-      this.serverless.cli.log(err);
       await client.end();
       throw err;
     }
