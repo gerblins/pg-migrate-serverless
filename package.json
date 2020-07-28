@@ -1,6 +1,6 @@
 {
   "name": "@gerblins/pg-migrate-serverless",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "Serverless plugin for @gerblins/pg-migrate",
   "main": "index.js",
   "license": "MIT",
