@@ -99,7 +99,7 @@ class ServerlessPlugin {
       );
       console.error(err);
       await client.end();
-      process.exit(1);
+      throw err;
     }
   }
 
